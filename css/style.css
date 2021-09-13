@@ -10,13 +10,20 @@ body {
   font-size: 17px;
   padding-left: 25px;
 }
-h3{
- color: #04276d;
- font-weight: 600;
-}
+
 h2{
   color: #134804;
 }
+h3{
+  color: #04276d;
+  font-weight: 600;
+ }
+ h4{
+   color: #b08500;
+ }
+ .category{
+  color: #21218c;
+ }
 .search-field:hover {
   outline: none;
   border: none;

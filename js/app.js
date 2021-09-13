@@ -16,15 +16,18 @@ const showProducts = (products) => {
     div.classList.add("product");
     div.innerHTML = `<div class="single-product">
       <div>
-    <img class="product-image" src="${image}" >
+         <img class="product-image" src="${image}" >
       </div>
       <h3>${product.title}</h3>
       <p>Category: ${product.category}</p>
       <h4>Total ${product.rating.count} vote</h4>
       <h4>Rating: ${product.rating.rate} </h4>
-      <h2>Price: $ ${product.price}</h2>
-      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button onclick="singleProductDetails(${product.id})" id="details-btn" class="btn btn-danger">Details</button></div>
+      <h2>Price: $${product.price}</h2>
+      <div class="button-group" >
+        <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now search-button">Add to cart</button>
+        <button id="details-btn" class="search-button">Details</button></div>
+      </div>
+
       `;
     document.getElementById("all-products").appendChild(div);
 
@@ -62,6 +65,9 @@ const setInnerText = (id, value) => {
 // update delivery charge and total Tax
 const updateTaxAndCharge = () => {
   const priceConverted = getInputValue("price");
+  if (priceConverted <= 200) {
+    setInnerText("delivery-charge", 20);
+  }
   if (priceConverted > 200) {
     setInnerText("delivery-charge", 30);
     setInnerText("total-tax", priceConverted * 0.2);
@@ -76,7 +82,6 @@ const updateTaxAndCharge = () => {
   }
   updateTotal();
 };
-
 //grandTotal update function
 const updateTotal = () => {
   const grandTotal =
@@ -85,17 +90,4 @@ const updateTotal = () => {
   document.getElementById("total").innerText = grandTotal.toFixed(2);
 };
 
-// custom code for details 
-
-
-
-
-let singleProductDetails = (idNumber) => {
-  let url = `https://fakestoreapi.com/products/${idNumber}`;
-
-  fetch(url)
-    .then(res => res.json())
-    .then(json => console.log(json))
-
-}
 

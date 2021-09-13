@@ -1,3 +1,4 @@
+// api call fucntion 
 const loadProducts = () => {
   const url = `https://fakestoreapi.com/products`;
   fetch(url)
@@ -8,12 +9,12 @@ loadProducts();
 
 // show all product in UI 
 const showProducts = (products) => {
-
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
     const image = product.image;
     const div = document.createElement("div");
     div.classList.add("product");
+    // my cart area balance dynamic update code 
     div.innerHTML = `<div class="single-product">
       <div>
          <img class="product-image" src="${image}" >
@@ -26,13 +27,11 @@ const showProducts = (products) => {
         <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now search-button">Add to cart</button>
         <button id="details-btn" class="search-button">Details</button></div>
       </div>
-
       `;
     document.getElementById("all-products").appendChild(div);
-
-
   }
 };
+
 let count = 0;
 const addToCart = (id, price) => {
   count = count + 1;
@@ -42,6 +41,7 @@ const addToCart = (id, price) => {
   document.getElementById("total-Products").innerText = count;
 };
 
+// input value code 
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
   const converted = parseFloat(element);
@@ -65,21 +65,21 @@ const setInnerText = (id, value) => {
 const updateTaxAndCharge = () => {
   const priceConverted = getInputValue("price");
   if (priceConverted <= 200) {
-    setInnerText("delivery-charge", 20);
+    setInnerText("delivery-charge", 20); // under $200 delivery charge 20 and no tax
   }
   if (priceConverted > 200) {
     setInnerText("delivery-charge", 30);
-    setInnerText("total-tax", priceConverted * 0.2);
+    setInnerText("total-tax", priceConverted * 0.2);//  delivery charge 30 and tax 20%
   }
   if (priceConverted > 400) {
     setInnerText("delivery-charge", 50);
-    setInnerText("total-tax", priceConverted * 0.3);
+    setInnerText("total-tax", priceConverted * 0.3);//  delivery charge 50 and tax 30%
   }
   if (priceConverted > 500) {
     setInnerText("delivery-charge", 60);
-    setInnerText("total-tax", priceConverted * 0.4);
+    setInnerText("total-tax", priceConverted * 0.4);//  delivery charge 60 and tax 40%
   }
-  updateTotal();
+  updateTotal(); // total price function call
 };
 //grandTotal update function
 const updateTotal = () => {
